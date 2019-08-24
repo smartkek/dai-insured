@@ -11,9 +11,8 @@ If it drops below 1.5, the position is liquidated, i.e., the DAI are forcibly re
 To avoid liquidation, users either increase the collateral (ETH) or decrease the debt (DAI).
 This moves the position further from the liquidation threshold and makes the CDP "safer".
 
-We identified a problem for Maker CDP holders.
-To react quickly in the case of rapid market movements, the user must be constantly online.
-Some DeFi products such as 
+We identified a problem for Maker CDP holders: to react quickly in the case of rapid market movements, the user must be constantly online.
+No existing DeFi project addresses this issue.
 
 ### Existing solutions
 
