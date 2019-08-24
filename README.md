@@ -1,1 +1,1 @@
-# dai-insured
+# DAI Insured

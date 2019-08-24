@@ -1,0 +1,23 @@
+{
+  "name": "dai-insured",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "any-promise": "^1.3.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "bindings": "^1.5.0",
+    "ganache-cli": "^6.4.1",
+    "truffle": "5.0.25",
+    "truffle-hdwallet-provider": "^1.0.0-web3one.5"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/truffle test"
+  },
+  "author": "",
+  "license": "ISC"
+}
