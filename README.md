@@ -17,25 +17,25 @@ No existing DeFi project addresses this issue.
 ### Existing solutions
 
 * [DeFi Saver](https://defisaver.com). It provides the functions ```Repay``` (move further from the liquidation) and ```Boost``` (move closer to liquidation, increase leverage). They have email notifications on the roadmap (see [Can DeFi Saver automatically protect my CDP from liquidation?](https://defisaver.com/faq)), however, even then avoiding liquidation will require manual action. See also: [Introducing CDP Saver](https://blog.decenter.com/2019/04/29/introducing-cdp-saver-cdp-management-and-protection/).
-* [InstaDapp Bridge](https://instadapp.io). The InstaDApp liquidity contract "pays back your CDP debt and withdraws ETH that then gets moved to Compound. The liquidity contract then draws an equivalent order to compensate the previously paid debt". This also requires manual user action.
+* [InstaDapp Bridge](https://instadapp.io). The InstaDApp liquidity contract "pays back your CDP debt and withdraws ETH that then gets moved to Compound. The liquidity contract then draws an equivalent order to compensate the previously paid debt". This helps as the collateral factor in Compound (80%) is higher than in Maker (66%). This also requires manual user action.
 * others?
 
 
 ## What it does
 
-TODO: come up with a single-word term for "partially repay the CDP to move further from liquidations threshold". For now, just use "repay".
-
-DAI Insured enables a CDP holder to outsource the monitoring and (partially) relaying CDPs to avoid liquidation.
+DAI Insured enables a CDP holder to outsource the monitoring and (partially) repaying CDPs to avoid liquidation.
 This outsourcing is performed trustlessly and increases market efficiency by enabling markets for CDP monitoring.
+When called, DAI Insured decreases the liquidation risk by decreasing the collaterization and debt by the same amount.
 
 ### Two ways to avoid liquidation
 
-TODO: draw the graph (or simply take a photo of the hand-drawn one)
-
 We can visualize a CDP as a point on a plane, where the X axis is the collateral value (deposited ETH in USD), and the Y axis is the debt value (withdrawn DAI in USD).
-Line A is the liquidation threshold.
-Our goal is to always stay under this line.
-Line B is the threshold line.
+Our goal is to always stay under the Liquidation (red) line.
+
+The black line us is the insurance threshold line.
+The insurance threshold indicates 
+
+
 In the area between these lines (the Danger Area), our contract may act to move the point further from the line.
 This can be done in one of the two ways:
 
@@ -53,7 +53,7 @@ The Saver identifies a CDP in the Danger Area, it does the following:
 1. wipe these DAI and get ETH in the Maker contract
 1. sell ETH
 
-The drawback of this method is that the Saver has to have some capital (in form of DAI) upfront to partially relay the CDP.
+The drawback of this method is that the Saver has to have some capital (in form of DAI) upfront to partially repay the CDP.
 
 ### Left then down
 
@@ -62,7 +62,7 @@ Another way would be to:
 1. sell ETH for DAI (e.g., at Uniswap)
 1. wipe the DAI in the Maker contract
 
-The benefit is that n capital is required upfront.
+The benefit is that no capital is required upfront.
 The drawback is that one such "step" may not be enough to move out of the Danger Area.
 In the CDP is close to liquidation, only a small amount of ETH can be withdrawn on step 1.
 In this case, multiple steps are required to leave the Danger Area.
@@ -82,7 +82,7 @@ TODO: economic analysis (ideally, "XXX dollars could have been saved").
 
 ### Interacting with MakerDAO
 
-We created a contract to operate the CDP so that the collaterization ration can be adjusted.
+We created a contract to operate the CDP so that the collaterization ratio can be adjusted if close to liquidation.
 
 ## Challenges we ran into
 
@@ -94,8 +94,11 @@ The MakerDAO contract structure is pretty complicated ;)
 
 ## What's next for DAI Insured
 
-Integrate the "insurance mechanics in the MakerDAO itself.
-This would allow the Saver to operate in a single step without requiring additional capital, temporarily going above the liquidation ration (within one transaction).
+Integrate the insurance mechanics in the MakerDAO itself.
+This would allow the Saver to operate in a single step without requiring additional capital, bypassing the collaterization ratio requirements.
+
+DAI Insured is a simple enough protocol to be formally verified (Maker DAO is formally verified).
+This would allow DAI Insured to adhere to the security standards of the DAI ecosystem.
 
 The user might want to be sure that the Saver would performed as advertised.
 We may introduce penalties in addition to rewards to motivate the required behavior.
