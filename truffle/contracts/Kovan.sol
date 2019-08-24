@@ -14,11 +14,14 @@ contract Kovan {
     // address internal constant DAD = 0x6a884c7af48e29a20be9ff04bdde112b5596fcee;
     // address internal constant MOM = 0x72ee9496b0867dfe5e8b280254da55e51e34d27b;
     // address internal constant VOX = 0xbb4339c0ab5b1d9f14bd6e3426444a1e9d86a1d9;
-    address internal constant TUB = 0xa71937147b55Deb8a530C7229C442Fd3F31b7db2; // TUB
+    address public constant TUB = 0xa71937147b55Deb8a530C7229C442Fd3F31b7db2; // TUB
     // address internal constant TAP = 0xc936749d2d0139174ee0271bd28325074fdbc654;
     // address internal constant TOP = 0x5f00393547561da3030ebf30e52f5dc0d5d3362c;
 
     address internal constant PROXY = 0x96Fc005a8Ba82B84B11E0Ff211a2a1362f107Ef0;
 
+    address internal constant UNISWAP = 0x09cabEC1eAd1c0Ba254B09efb3EE13841712bE14; // MAINNET!
+
+    // 0x6b1d4db70000000000000000000000000000000000000000000000000de0b6b3a7640000000000000000000000000000000000000000000000000000000000005d61b9a9
 
 }

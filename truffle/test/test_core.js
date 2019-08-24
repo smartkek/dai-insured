@@ -7,12 +7,14 @@ contract("Testing System", accounts => {
   let insured;
   let authority;
   let proxy;
+  let saiproxy;
 
   before("setup", async() => {
     insured = await Insured.deployed();
     authority = await Authority.deployed(insured.address);
     proxy = await DSProxy.deployed(insured.address);
     await proxy.setAuthority(authority.address);
+    saiproxy = await SaiProxy.deployed();
   });
 
 
@@ -24,10 +26,11 @@ contract("Testing System", accounts => {
   it("Authority should authorize Insured to call DSProxy", async () => {
     assert.isTrue(await authority.canCall(insured.address, proxy.address, "0x11223344"));
   });
-
   // it("Insured should call SaiProxy", async () => {
-  //   await insured.save(DSProxy, );
-  //   assert.equal(await authority.canCall(insured.address, proxy.address, "0x11223344"));
+    // await insured.save(DSProxy.address, new BN("0x0102030405060708091011121314151617181920212223242526272829303132"));
+    // assert.equal(await SaiProxy.tub(), await insured.tub());
+    // assert.equal(await SaiProxy.cup(), 0x0102030405060708091011121314151617181920212223242526272829303132);
+    // assert.equal(await SaiProxy.jam(), 1543);
   // });
 
 

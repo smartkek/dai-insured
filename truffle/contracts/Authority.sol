@@ -1,9 +1,5 @@
 pragma solidity ^0.5.10;
 
-import "./IDSProxy.sol";
-import "./Insured.sol";
-
-
 contract Authority {
     address public insured;
 
