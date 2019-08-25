@@ -11,7 +11,8 @@ When set up anyone can call `save` and `saveN` methods of Insured to repay endan
 ## Deployment
 1. Deploy Insured
 2. Deploy Authority, use Insured address in constructor
-3. Assuming user has his DSProxy contract (created via CDP Portal). Initialize `DSProxy.setAuthority` with Authority's address
+3. Assuming user has his DSProxy contract (created via CDP Portal). Initialize `DSProxy.setAuthority` with Authority's address. 
+    * One can use [IDSProxy](contracts/IDSProxy.sol) and [Remix](http://remix.ethereum.org/#optimize=false&evmVersion=null&version=soljson-v0.5.11+commit.c082d0b4.js) to call `setAuthority` function 
 
 Enjoy help from bots! 
 
