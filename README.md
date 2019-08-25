@@ -26,6 +26,7 @@ No existing DeFi project addresses this issue.
 DAI Insured enables a CDP holder to outsource the monitoring and (partially) repaying CDPs to avoid liquidation.
 This outsourcing is performed trustlessly and increases market efficiency by enabling markets for CDP monitoring.
 When called, DAI Insured decreases the liquidation risk by decreasing the collaterization and debt by the same amount.
+With DAI Insure, a user may be sure that their CDP won't be liquidated.
 
 ### Two ways to avoid liquidation
 
@@ -67,15 +68,6 @@ The drawback is that one such "step" may not be enough to move out of the Danger
 In the CDP is close to liquidation, only a small amount of ETH can be withdrawn on step 1.
 In this case, multiple steps are required to leave the Danger Area.
 As a result, the transaction fees will be higher.
-
-
-
-### Trustless outsourcing
-
-With DAI Insure, a user may be sure that their CDP won't be liquidated.
-TODO: fee structure.
-TODO: economic analysis (ideally, "XXX dollars could have been saved").
-
 
 
 ## How we built it
