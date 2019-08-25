@@ -94,10 +94,13 @@ Special thanks to Josh from MakerDAO who helped to understand that logic and man
 
 ## What's next for DAI Insured
 
-Integrate the insurance mechanics in the MakerDAO itself.
+* Integrate the insurance mechanics in the MakerDAO itself.
 This would allow the Saver to operate in a single step without requiring additional capital, bypassing the collaterization ratio requirements.
 
-One could integrate this logic into other lenging protocols, including [Compound](https://app.compound.finance/) and [Multi-Collateral Dai](https://makerdao.com/da/whitepaper/).
+* One could integrate this logic into other lenging protocols, including [Compound](https://app.compound.finance/) and [Multi-Collateral Dai](https://makerdao.com/da/whitepaper/).
 
-DAI Insured is a simple enough protocol to be formally verified (Maker DAO contracts are formally verified).
+* Implement ready to use bots that automaticaly discover insured CDPs, monitor them, and protect those close to liquidation. 
+
+* DAI Insured is a simple enough protocol to be formally verified (Maker DAO contracts are formally verified).
 This would allow DAI Insured to adhere to the security standards of the DAI ecosystem.
+    * We should polish the code first and improve code coverage.
