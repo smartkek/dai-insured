@@ -13,6 +13,7 @@ This moves the position further from the liquidation threshold and makes the CDP
 
 We identified a problem for Maker CDP holders: to react quickly in the case of rapid market movements, the user must be constantly online.
 No existing DeFi project addresses this issue.
+See [slides](https://docs.google.com/presentation/d/1Dqy20Idz79Bfu_YGg4aQqHvX-eGngAuUYtK7EqfpK08/edit?usp=sharing) for more details.
 
 ### Existing solutions
 
