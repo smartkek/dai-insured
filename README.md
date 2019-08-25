@@ -35,10 +35,10 @@ We can visualize a CDP as a point on a plane, where the X axis is the collateral
 Our goal is to always stay under the Liquidation (red) line.
 
 The black line us is the insurance threshold line.
-The insurance threshold indicates 
-
-
 In the area between these lines (the Danger Area), our contract may act to move the point further from the line.
+
+![Alt text](https://raw.githubusercontent.com/smartkek/dai-insured/master/graphs/img/dai-insured-50-5.png)
+
 This can be done in one of the two ways:
 
 1. move down and then left 
