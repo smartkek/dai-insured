@@ -72,10 +72,11 @@ As a result, the transaction fees will be higher.
 
 ## How we built it
 
-We created a contract to operate the CDP so that helps to partially repay debt to increase collaterization ratio of any CDP, if the it is close to liquidation.
+We created a contract to operate the CDP.
+This contract helps partially repay the debt to increase collaterization ratio of any CDP that is close to liquidation.
 This feature can be attached to any existing CDP and doesn't break existing integrations.
 
-More technical details available [here](truffle/README.md)
+More technical details available [here](truffle/README.md).
 
 ## Challenges, Accomplishments, and Insights
 
@@ -89,9 +90,9 @@ Special thanks to Josh from MakerDAO who helped to understand that logic and man
 * Integrate the insurance mechanics in the MakerDAO itself.
 This would allow the Saver to operate in a single step without requiring additional capital, bypassing the collaterization ratio requirements.
 
-* One could integrate this logic into other lenging protocols, including [Compound](https://app.compound.finance/) and [Multi-Collateral Dai](https://makerdao.com/da/whitepaper/).
+* One could integrate this logic into other lending protocols, including [Compound](https://app.compound.finance/) and [Multi-Collateral Dai](https://makerdao.com/da/whitepaper/).
 
-* Implement ready to use bots that automaticaly discover insured CDPs, monitor them, and protect those close to liquidation. 
+* Implement ready to use bots that automatically discover insured CDPs, monitor them, and protect those close to liquidation. 
 
 * DAI Insured is a simple enough protocol to be formally verified (Maker DAO contracts are formally verified).
 This would allow DAI Insured to adhere to the security standards of the DAI ecosystem.
