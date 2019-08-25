@@ -72,7 +72,7 @@ As a result, the transaction fees will be higher.
 
 ### Trustless outsourcing
 
-With DAI Insure, a user may be sure that their CDP won't be liquidated.
+With DAI Insured, a user may be sure that their CDP won't be liquidated.
 TODO: fee structure.
 TODO: economic analysis (ideally, "XXX dollars could have been saved").
 
@@ -80,27 +80,27 @@ TODO: economic analysis (ideally, "XXX dollars could have been saved").
 
 ## How we built it
 
-### Interacting with MakerDAO
+We created a contract to operate the CDP so that helps to partially repay debt to increase collaterization ratio of any CDP, if the it is close to liquidation.
+This feature can be attached to any existing CDP and doesn't break existing integrations.
 
-We created a contract to operate the CDP so that the collaterization ratio can be adjusted if close to liquidation.
+More technical details available [here](truffle/README.md)
 
-## Challenges we ran into
+## Challenges, Accomplishments, and Insights
 
-The MakerDAO contract structure is pretty complicated ;)
+The MakerDAO contracts architecture is pretty complicated ;) 
+You should find someone who already knows the contracts before digging into it. 
 
-## Accomplishments that we're proud of
-
-## What we learned
+Special thanks to Josh from MakerDAO who helped to understand that logic and many others who discussed this idea and current progress in CDP management. 
 
 ## What's next for DAI Insured
 
-Integrate the insurance mechanics in the MakerDAO itself.
+* Integrate the insurance mechanics in the MakerDAO itself.
 This would allow the Saver to operate in a single step without requiring additional capital, bypassing the collaterization ratio requirements.
 
-DAI Insured is a simple enough protocol to be formally verified (Maker DAO is formally verified).
-This would allow DAI Insured to adhere to the security standards of the DAI ecosystem.
+* One could integrate this logic into other lenging protocols, including [Compound](https://app.compound.finance/) and [Multi-Collateral Dai](https://makerdao.com/da/whitepaper/).
 
-The user might want to be sure that the Saver would performed as advertised.
-We may introduce penalties in addition to rewards to motivate the required behavior.
-Potential Savers could put up stake (in ETH, DAI, or tokens) and accumulate reputation.
-Users would be sure that the Saver they trust to protect their CDP is highly likely to actually do it.
+* Implement ready to use bots that automaticaly discover insured CDPs, monitor them, and protect those close to liquidation. 
+
+* DAI Insured is a simple enough protocol to be formally verified (Maker DAO contracts are formally verified).
+This would allow DAI Insured to adhere to the security standards of the DAI ecosystem.
+    * We should polish the code first and improve code coverage.
