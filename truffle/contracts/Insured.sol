@@ -36,59 +36,86 @@ contract Insured is Kovan {
         z = (x * RAY + y / 2) / y;
     }
     
-    function toRepay(bytes32 cup) public returns (uint) {
+    function toRepay(bytes32 cup) internal returns (uint) {
         ITub tub = ITub(TUB);
-        uint coll = rmul(tub.tag(),tub.ink(cup)); 
+        uint coll = rmul(tub.tag(),tub.ink(cup));
         uint debt = rmul(IVox(VOX).par(), tub.tab(cup));
         
         uint ratio = coll * 100 / debt;
-        require(ratio < ACTIVE);
+        
+        if (ratio >= ACTIVE) {
+            return 0;
+        }
+
         uint need = (TARGET * debt - 100 * coll) / (TARGET - 100);
         uint can = coll - debt * LIQUIDATION / 100;
         uint to = need < can ? need : can;
         return rmul(tub.ink(cup), tub.per()) * to / coll; // redeem part of ink
     }
     
-    function withdraw(address target, bytes32 cup) public {
-        ITub tub = ITub(TUB);
-        uint coll = rmul(tub.tag(),tub.ink(cup)); 
-        uint debt = rmul(IVox(VOX).par(), tub.tab(cup));
-        
-        uint ratio = coll * 100 / debt;
-        require(ratio < ACTIVE);
-        uint need = (TARGET * debt - 100 * coll) / (TARGET - 100);
-        uint can = coll - debt * LIQUIDATION / 100;
-        uint to = need < can ? need : can;
-        uint amount = rmul(tub.ink(cup), tub.per()) * to / coll * 99 / 100; // redeem part of ink
-
+    function withdraw(address target, bytes32 cup, uint amount) internal {
         bytes memory free_data = abi.encodeWithSignature("free(address,bytes32,uint256)", TUB, cup, amount);
         IDSProxy(target).execute(PROXY, free_data);
     }
     
-    function sell() public {
+    function sell() internal {
         IExchange(EXCH).ethToDai.value(address(this).balance)(1);
     }
     
     
-    function repay(address target, bytes32 cup, uint amount) public {
+    function repay(address target, bytes32 cup, uint amount) internal {
         bytes memory wipe_data = abi.encodeWithSignature("wipe(address,bytes32,uint256,address)", TUB, cup, amount, OTC);
         IDSProxy(target).execute(PROXY, wipe_data);
     }
     
-    function save(address target, bytes32 cup) public {
-        // main logic here
-        
-        // free some collateral as WETH (if required)
-        withdraw(target, cup); // 218,387  gas
+    function saveN(address target, bytes32 cup) external {
+        IERC20(SAI).approve(target, uint(-1));
+        uint iter = 0;
+        while (true) {
+            if (gasleft() < 1000000) {
+                break;
+            }
+
+            // how much collateral do we need?
+            uint amountEth = toRepay(cup);
+            if (amountEth == 0) {
+                break;
+            }
+            
+            // free some collateral as WETH
+            withdraw(target, cup, amountEth * 99 / 100);
+
+            // how much eth we want to sell?
+            sell();
+
+            uint amountDai = IERC20(SAI).balanceOf(address(this));
+            // repay some debt
+            iter++;
+            repay(target, cup, amountDai - FEE - REWARD*iter);
+        }        
+        if (iter > 0) {
+            // pay rewards
+            IERC20(SAI).transfer(msg.sender, iter * REWARD);
+            emit Saved(target);
+        }
+    }
+    
+    function save(address target, bytes32 cup) external {        
+        // how much collateral do we need?
+        uint amountEth = toRepay(cup);
+        require (amountEth > 0, "No help needed");
+        // free some collateral as WETH
+        withdraw(target, cup, amountEth * 99 / 100);
 
         // how much eth we want to sell?
-        sell(); // 69k gas
+        sell();
 
         IERC20(SAI).approve(target, uint(-1));
-
         uint amountDai = IERC20(SAI).balanceOf(address(this));
+        // repay some debt
         repay(target, cup, amountDai - FEE - REWARD);
 
+        // pay rewards
         IERC20(SAI).transfer(msg.sender, REWARD);
 
         emit Saved(target);
